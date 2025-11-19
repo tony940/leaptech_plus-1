@@ -11,83 +11,43 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this._homeRepo) : super(HomeInitial());
   final HomeRepoImpl _homeRepo;
 
-  // ---------------------------
   // Quote of the day
-  // ---------------------------
   Future<void> getQuoteOfTheDay() async {
-    if (isClosed) return;
     emit(HomeQuoteLoading());
-
-    try {
-      final response = await _homeRepo.getQuoteOfTheDay();
-      if (isClosed) return;
-
-      response.fold(
-        (failure) => emit(HomeQuoteFailure(failure.errorMessage)),
-        (quote) => emit(HomeQuoteSuccess(quote)),
-      );
-    } catch (e) {
-      if (!isClosed) emit(HomeQuoteFailure(e.toString()));
-    }
+    var response = await _homeRepo.getQuoteOfTheDay();
+    response.fold(
+      (failure) => emit(HomeQuoteFailure(failure.errorMessage)),
+      (quote) => emit(HomeQuoteSuccess(quote)),
+    );
   }
 
-  // ---------------------------
   // Create event
-  // ---------------------------
   Future<void> createEvent({required EventModel event}) async {
-    if (isClosed) return;
     emit(HomeEventLoading());
-
-    try {
-      final response = await _homeRepo.createEvent(event: event);
-      if (isClosed) return;
-
-      response.fold(
-        (failure) => emit(HomeEventFailure(failure.errorMessage)),
-        (_) => emit(HomeEventCreated()),
-      );
-    } catch (e) {
-      if (!isClosed) emit(HomeEventFailure(e.toString()));
-    }
+    var response = await _homeRepo.createEvent(event: event);
+    response.fold(
+      (failure) => emit(HomeEventFailure(failure.errorMessage)),
+      (_) => emit(HomeEventCreated()),
+    );
   }
 
-  // ---------------------------
   // Get all events
-  // ---------------------------
   Future<void> getAllEvents() async {
-    if (isClosed) return;
     emit(HomeEventLoading());
-
-    try {
-      final response = await _homeRepo.getAllEvents();
-      if (isClosed) return;
-
-      response.fold(
-        (failure) => emit(HomeEventFailure(failure.errorMessage)),
-        (events) => emit(HomeEventSuccess(events)),
-      );
-    } catch (e) {
-      if (!isClosed) emit(HomeEventFailure(e.toString()));
-    }
+    var response = await _homeRepo.getAllEvents();
+    response.fold(
+      (failure) => emit(HomeEventFailure(failure.errorMessage)),
+      (events) => emit(HomeEventSuccess(events)),
+    );
   }
 
-  // ---------------------------
   // Delete event
-  // ---------------------------
   Future<void> deleteEvent({required int eventId}) async {
-    if (isClosed) return;
     emit(HomeEventLoading());
-
-    try {
-      final response = await _homeRepo.deleteEvent(eventId: eventId);
-      if (isClosed) return;
-
-      response.fold(
-        (failure) => emit(HomeEventFailure(failure.errorMessage)),
-        (_) => emit(HomeEventDeleted()),
-      );
-    } catch (e) {
-      if (!isClosed) emit(HomeEventFailure(e.toString()));
-    }
+    var response = await _homeRepo.deleteEvent(eventId: eventId);
+    response.fold(
+      (failure) => emit(HomeEventFailure(failure.errorMessage)),
+      (_) => emit(HomeEventDeleted()),
+    );
   }
 }
