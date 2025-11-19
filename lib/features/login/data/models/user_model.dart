@@ -21,6 +21,8 @@ class UserModel extends HiveObject {
 
   @HiveField(5)
   final String? imageUrl;
+  @HiveField(6)
+  final String type;
 
   UserModel({
     required this.id,
@@ -29,6 +31,7 @@ class UserModel extends HiveObject {
     required this.password,
     required this.role,
     this.imageUrl,
+    required this.type,
   });
 
   /// Factory constructor from JSON
@@ -40,6 +43,7 @@ class UserModel extends HiveObject {
       password: json['password'],
       role: json['role'],
       imageUrl: json['image_url'],
+      type: json['type'],
     );
   }
 
@@ -51,5 +55,6 @@ class UserModel extends HiveObject {
         'password': password,
         'role': role,
         'image_url': imageUrl,
+        'type': type,
       };
 }

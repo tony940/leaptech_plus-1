@@ -11,10 +11,12 @@ class HomeGoodMorningCard extends StatelessWidget {
     required this.name,
     required this.role,
     required this.image,
+    required this.type,
   });
   final String name;
   final String role;
   final String image;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +42,25 @@ class HomeGoodMorningCard extends StatelessWidget {
                 role,
                 style: AppTextStyles.font14WhiteMedium,
               ),
+              Text(
+                type,
+                style: AppTextStyles.font14WhiteMedium,
+              ),
             ],
           ),
           CircleAvatar(
-            radius: 50.r,
-            backgroundColor: Colors.transparent,
-            backgroundImage: CachedNetworkImageProvider(
-              image,
-            ),
-          ),
+            radius: 40.r,
+            backgroundColor: Colors.grey.shade300,
+            backgroundImage:
+                (image.isNotEmpty) ? CachedNetworkImageProvider(image) : null,
+            child: (image.isEmpty)
+                ? Icon(
+                    Icons.person,
+                    size: 50.r,
+                    color: Colors.white,
+                  )
+                : null,
+          )
         ],
       ),
     );

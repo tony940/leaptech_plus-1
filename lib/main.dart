@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaptech_plus/core/dependency_injection/dependency_injection.dart';
 import 'package:leaptech_plus/core/routing/app_router.dart';
-import 'package:leaptech_plus/core/services/auth_service.dart';
 import 'package:leaptech_plus/core/services/shared_pref_service.dart';
 import 'package:leaptech_plus/core/services/supabase_service.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';

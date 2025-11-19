@@ -41,5 +41,6 @@ Future<void> setupGetIt() async {
 
   // Cubits (better to be factories)
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt<LoginRepoImpl>()));
-  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt<HomeRepoImpl>()));
+  getIt
+      .registerLazySingleton<HomeCubit>(() => HomeCubit(getIt<HomeRepoImpl>()));
 }

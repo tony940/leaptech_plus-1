@@ -55,7 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   HomeGoodMorningCard(
                     name: getCurrentUser()!.fullName,
                     role: getCurrentUser()!.role,
-                    image: getCurrentUser()!.imageUrl!,
+                    image: getCurrentUser()!.imageUrl ?? '',
+                    type: getCurrentUser()!.type,
                   ),
                   verticalSpace(20),
                   HomeDateCard(
