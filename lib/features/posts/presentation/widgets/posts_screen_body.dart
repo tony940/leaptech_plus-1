@@ -36,6 +36,10 @@ class _PostsScreenBodyState extends State<PostsScreenBody> {
           ),
         ),
         BlocBuilder<PostsCubit, PostsState>(
+          buildWhen: (previous, current) =>
+              current is PostsGetAllPostsSuccess ||
+              current is PostsGetAllPostsFailure ||
+              current is PostsGetAllPostsLoading,
           builder: (context, state) {
             if (state is PostsGetAllPostsLoading) {
               return _buildLoadingPosts();
@@ -82,14 +86,16 @@ class _PostsScreenBodyState extends State<PostsScreenBody> {
           itemBuilder: (context, index) {
             return PostItem(
               postWithRelation: PostWithRelations(
-                  post: PostModel(
-                      id: 'id',
-                      userId: 'userId',
-                      createdAt: DateTime.now(),
-                      user: PostUserModel(id: 'id', fullName: 'fullName')),
-                  comments: [],
-                  likes: [],
-                  images: []),
+                post: PostModel(
+                    id: 'id',
+                    userId: 'userId',
+                    createdAt: DateTime.now(),
+                    user: PostUserModel(
+                        id: 'id', fullName: 'fullName', imageUrl: 'imageUrl')),
+                comments: [],
+                likes: [],
+                images: [],
+              ),
             );
           },
         ),

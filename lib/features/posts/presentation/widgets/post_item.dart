@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:leaptech_plus/core/functions/get_current_date.dart';
+import 'package:leaptech_plus/core/functions/get_current_user.dart';
 import 'package:leaptech_plus/core/themes/app_text_styles.dart';
 import 'package:leaptech_plus/core/utils/spacing.dart';
 import 'package:leaptech_plus/features/posts/data/models/post_model.dart';
+import 'package:leaptech_plus/features/posts/data/models/post_user_model.dart';
 import 'package:leaptech_plus/features/posts/data/models/post_with_relation_model.dart';
 import 'package:leaptech_plus/features/posts/presentation/widgets/post_item_footer.dart';
 import 'package:leaptech_plus/features/posts/presentation/widgets/post_item_header.dart';
@@ -52,6 +55,11 @@ class PostItem extends StatelessWidget {
           // Post footer
           PostItemFooter(
             postWithRelations: postWithRelation,
+            currentUser: PostUserModel(
+              id: getCurrentUser()!.id,
+              fullName: getCurrentUser()!.fullName,
+              imageUrl: getCurrentUser()!.imageUrl!,
+            ),
           ),
         ],
       ),

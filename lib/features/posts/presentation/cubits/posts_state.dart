@@ -1,20 +1,31 @@
 part of 'posts_cubit.dart';
 
 @immutable
-sealed class PostsState {}
+abstract class PostsState {}
 
-final class PostsInitial extends PostsState {}
+class PostsInitial extends PostsState {}
 
-final class PostsGetAllPostsLoading extends PostsState {}
+class PostsGetAllPostsLoading extends PostsState {}
 
-final class PostsGetAllPostsSuccess extends PostsState {
+class PostsGetAllPostsSuccess extends PostsState {
   final List<PostWithRelations> posts;
-
   PostsGetAllPostsSuccess(this.posts);
 }
 
-final class PostsGetAllPostsFailure extends PostsState {
+class PostsGetAllPostsFailure extends PostsState {
   final String errorMessage;
-
   PostsGetAllPostsFailure(this.errorMessage);
+}
+
+// Toggle like states
+class PostsToggleLikeLoading extends PostsState {}
+
+class PostsToggleLikeFailure extends PostsState {
+  final String postId;
+  final String errorMessage;
+  PostsToggleLikeFailure(this.postId, this.errorMessage);
+}
+
+class PostsToggleLikeSuccess extends PostsState {
+  PostsToggleLikeSuccess();
 }

@@ -6,7 +6,7 @@ class PostModel {
   final String? content;
   final DateTime createdAt;
   final DateTime? updatedAt;
-  final PostUserModel user; // added user info
+  final PostUserModel user;
 
   PostModel({
     required this.id,
@@ -27,6 +27,24 @@ class PostModel {
           ? DateTime.parse(map['updated_at'] as String)
           : null,
       user: PostUserModel.fromMap(map['user'] as Map<String, dynamic>),
+    );
+  }
+
+  PostModel copy({
+    String? id,
+    String? userId,
+    String? content,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    PostUserModel? user,
+  }) {
+    return PostModel(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      content: content ?? this.content,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      user: user ?? this.user.copy(),
     );
   }
 }

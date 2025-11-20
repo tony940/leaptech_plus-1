@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:leaptech_plus/core/errors/failure.dart';
 import 'package:leaptech_plus/core/services/supabase_service.dart';
@@ -51,6 +53,30 @@ class PostsRepoImpl implements PostsRepo {
       return Right(posts);
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
+    } on SocketException catch (e) {
+      return Left(Failure(
+          errorMessage:
+              "No internet connection detected. Please check your network and try again."));
+    } catch (e) {
+      return Left(Failure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> toggleLike({
+    required String postId,
+    required String userId,
+  }) async {
+    try {
+      await _supabaseService.toggleLike(
+        postId: postId,
+        userId: userId,
+      );
+      return const Right(null);
+    } on PostgrestException catch (e) {
+      return Left(SupbaseFailure.postgrestErrorHandler(e));
+    } on SocketException catch (e) {
+      return Left(Failure(errorMessage: 'No internet connection.'));
     } catch (e) {
       return Left(Failure(errorMessage: e.toString()));
     }

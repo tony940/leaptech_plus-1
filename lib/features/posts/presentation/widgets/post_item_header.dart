@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:leaptech_plus/core/themes/app_colors.dart';
 import 'package:leaptech_plus/core/themes/app_text_styles.dart';
 import 'package:leaptech_plus/core/utils/spacing.dart';
 import 'package:leaptech_plus/features/posts/data/models/post_model.dart';
@@ -14,6 +15,7 @@ class PostItemHeader extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 20,
+          backgroundColor: AppColors.primaryColor,
           backgroundImage: postModel.user.imageUrl == null
               ? null
               : CachedNetworkImageProvider(postModel.user.imageUrl!),

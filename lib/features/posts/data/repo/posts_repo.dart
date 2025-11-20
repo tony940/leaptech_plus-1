@@ -7,4 +7,8 @@ abstract class PostsRepo {
   Future<Either<Failure, void>> addPost({required PostModel postModel});
   Future<Either<Failure, void>> deletePost({required int postId});
   Future<Either<Failure, List<PostWithRelations>>> getAllPosts();
+  Future<Either<Failure, void>> toggleLike({
+    required String postId,
+    required String userId,
+  });
 }

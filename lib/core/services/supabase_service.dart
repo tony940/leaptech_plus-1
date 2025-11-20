@@ -105,4 +105,34 @@ class SupabaseService {
     final data = response as List<dynamic>? ?? [];
     return data.map((e) => e as Map<String, dynamic>).toList();
   }
+
+  // toggle like on post
+  Future<void> toggleLike({
+    required String postId,
+    required String userId,
+  }) async {
+    // Check if like exists
+    final existingLike = await _client
+        .from('post_likes')
+        .select()
+        .eq('post_id', postId)
+        .eq('user_id', userId);
+
+    final data = existingLike as List<dynamic>? ?? [];
+
+    if (data.isNotEmpty) {
+      // If exists → delete like
+      await _client
+          .from('post_likes')
+          .delete()
+          .eq('post_id', postId)
+          .eq('user_id', userId);
+    } else {
+      // If not exists → insert like
+      await _client.from('post_likes').insert({
+        'post_id': postId,
+        'user_id': userId,
+      });
+    }
+  }
 }
