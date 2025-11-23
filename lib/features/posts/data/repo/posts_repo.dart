@@ -9,7 +9,7 @@ abstract class PostsRepo {
     required String? content,
     List<String>? imageUrls,
   });
-  Future<Either<Failure, void>> deletePost({required int postId});
+  Future<Either<Failure, void>> deletePost({required String postId});
   Future<Either<Failure, List<PostWithRelations>>> getAllPosts();
   Future<Either<Failure, void>> toggleLike({
     required String postId,

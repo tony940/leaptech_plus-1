@@ -113,6 +113,7 @@ class SupabaseService {
     required String postId,
     required String userId,
   }) async {
+    print('toggle like service called');
     // Check if like exists
     final existingLike = await _client
         .from('post_likes')
@@ -183,6 +184,11 @@ class SupabaseService {
 
       await _client.from('post_images').insert(imagesToInsert);
     }
+  }
+
+//Delete post
+  Future<void> deletePost({required String postId}) async {
+    await _client.from('posts').delete().eq('id', postId);
   }
 
   Future<String> uploadImage({

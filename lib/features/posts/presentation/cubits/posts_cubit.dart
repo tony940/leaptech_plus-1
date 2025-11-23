@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:leaptech_plus/features/posts/data/models/post_model.dart';
 import 'package:leaptech_plus/features/posts/data/models/post_user_model.dart';
 import 'package:leaptech_plus/features/posts/data/models/post_with_relation_model.dart';
 import 'package:leaptech_plus/features/posts/data/repo/posts_repo_impl.dart';
@@ -36,7 +37,6 @@ class PostsCubit extends Cubit<PostsState> {
 
     final post = allPosts[postIndex];
     final likes = post.likes;
-
     // 2️⃣ Check if user already liked
     final alreadyLiked = likes.any((user) => user.id == currentUser.id);
 
@@ -96,6 +96,7 @@ class PostsCubit extends Cubit<PostsState> {
     List<String>? imageUrls,
   }) async {
     emit(PostsAddPostLoading());
+
     final response = await _postsRepo.addPost(
       userId: userId,
       content: content,
@@ -104,7 +105,19 @@ class PostsCubit extends Cubit<PostsState> {
     response.fold((failure) => emit(PostsAddPostFailure(failure.errorMessage)),
         (_) {
       emit(PostsGetAllPostsSuccess(allPosts));
-      emit(PostsAddPostSuccess());
+    });
+  }
+
+  //Delete post
+  Future<void> deletePost({required String postId}) async {
+    emit(PostsDeletePostLoading());
+    allPosts.removeWhere((p) => p.post.id == postId);
+    emit(PostsGetAllPostsSuccess(allPosts));
+    final response = await _postsRepo.deletePost(postId: postId);
+    response.fold(
+        (failure) => emit(PostsDeletePostFailure(failure.errorMessage)), (_) {
+      emit(PostsGetAllPostsSuccess(allPosts));
+      emit(PostsDeletePostSuccess());
     });
   }
 }

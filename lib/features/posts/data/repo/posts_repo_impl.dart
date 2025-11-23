@@ -68,6 +68,7 @@ class PostsRepoImpl implements PostsRepo {
     required String userId,
   }) async {
     try {
+      print('toggle like repo called');
       await _supabaseService.toggleLike(
         postId: postId,
         userId: userId,
@@ -83,31 +84,39 @@ class PostsRepoImpl implements PostsRepo {
   }
 
   @override
-Future<Either<Failure, void>> addPost({
-  required String userId,
-  required String? content,
-  List<String>? imageUrls,
-}) async {
-  try {
-    await _supabaseService.addPost(
-      userId: userId,
-      content: content,
-      imageUrls: imageUrls,
-    );
-    return const Right(null); // success
-  } on PostgrestException catch (e) {
-    return Left(SupbaseFailure.postgrestErrorHandler(e));
-  } on SocketException catch (e) {
-    return Left(Failure(errorMessage: 'No internet connection.'));
-  } catch (e) {
-    return Left(Failure(errorMessage: e.toString()));
+  Future<Either<Failure, void>> addPost({
+    required String userId,
+    required String? content,
+    List<String>? imageUrls,
+  }) async {
+    try {
+      await _supabaseService.addPost(
+        userId: userId,
+        content: content,
+        imageUrls: imageUrls,
+      );
+      return const Right(null); // success
+    } on PostgrestException catch (e) {
+      return Left(SupbaseFailure.postgrestErrorHandler(e));
+    } on SocketException catch (e) {
+      return Left(Failure(errorMessage: 'No internet connection.'));
+    } catch (e) {
+      return Left(Failure(errorMessage: e.toString()));
+    }
   }
-}
-
 
   @override
-  Future<Either<Failure, void>> deletePost({required int postId}) {
-    throw UnimplementedError();
+  Future<Either<Failure, void>> deletePost({required String postId}) async {
+    try {
+      await _supabaseService.deletePost(postId: postId.toString());
+      return Right(null);
+    } on PostgrestException catch (e) {
+      return Left(SupbaseFailure.postgrestErrorHandler(e));
+    } on SocketException catch (e) {
+      return Left(Failure(errorMessage: 'No internet connection.'));
+    } catch (e) {
+      return Left(Failure(errorMessage: e.toString()));
+    }
   }
 
   @override
