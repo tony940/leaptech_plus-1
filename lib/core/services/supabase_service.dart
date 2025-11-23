@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:leaptech_plus/features/home/data/models/event_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -133,6 +135,82 @@ class SupabaseService {
         'post_id': postId,
         'user_id': userId,
       });
+    }
+  }
+
+  // ------------------------------------------------------
+  // ADD COMMENT
+  // ------------------------------------------------------
+  Future<void> addComment({
+    required String postId,
+    required String userId,
+    required String commentText,
+  }) async {
+    print('add comment service called');
+    var res = await _client.from('post_comments').insert({
+      'post_id': postId,
+      'user_id': userId,
+      'content': commentText,
+    });
+  }
+
+  Future<void> addPost({
+    required String userId,
+    required String? content,
+    List<String>? imageUrls,
+  }) async {
+    // 1. Insert the post
+    final postResponse = await _client
+        .from('posts')
+        .insert({
+          'user_id': userId,
+          'content': content,
+        })
+        .select()
+        .single();
+
+    final post = Map<String, dynamic>.from(postResponse);
+    final postId = post['id'] as String;
+
+    // 2. If there are images, insert them
+    if (imageUrls != null && imageUrls.isNotEmpty) {
+      final imagesToInsert = imageUrls.map((url) {
+        return {
+          'post_id': postId,
+          'image_url': url,
+        };
+      }).toList();
+
+      await _client.from('post_images').insert(imagesToInsert);
+    }
+  }
+
+  Future<String> uploadImage({
+    required File file,
+    String folder = 'images',
+    String bucket = 'images',
+  }) async {
+    try {
+      // Generate a unique file name
+      final fileName =
+          '${DateTime.now().millisecondsSinceEpoch}_${file.path.split('/').last}';
+
+      // Upload the file
+      final response = await _client.storage.from(bucket).upload(
+            '$folder/$fileName',
+            file,
+            fileOptions: const FileOptions(cacheControl: '3600', upsert: false),
+          );
+
+      // Get the public URL
+      final publicUrl =
+          _client.storage.from(bucket).getPublicUrl('$folder/$fileName');
+
+      return publicUrl;
+    } on StorageException catch (e) {
+      throw Exception('Failed to upload image: ${e.message}');
+    } catch (e) {
+      throw Exception('Unknown error uploading image: $e');
     }
   }
 }

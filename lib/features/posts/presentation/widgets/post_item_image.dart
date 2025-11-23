@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class PostItemImage extends StatelessWidget {
   const PostItemImage({super.key, required this.images});
@@ -22,15 +24,25 @@ class PostItemImage extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         final imageUrl = images[index];
-
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(12.r),
-          child: Image.network(
-            imageUrl,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => Container(
-              color: Colors.grey[300],
-              child: const Icon(Icons.broken_image),
+        return GestureDetector(
+          onTap: () {
+            context.push(
+              '/customPhotoView',
+              extra: imageUrl,
+            );
+          },
+          child: Hero(
+            tag: imageUrl,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12.r),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                errorWidget: (context, error, stackTrace) => Container(
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.broken_image),
+                ),
+              ),
             ),
           ),
         );

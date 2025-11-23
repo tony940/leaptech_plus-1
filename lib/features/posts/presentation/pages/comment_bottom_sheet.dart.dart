@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:leaptech_plus/core/functions/get_current_date.dart';
+import 'package:leaptech_plus/core/functions/get_current_user.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
 import 'package:leaptech_plus/core/themes/app_text_styles.dart';
 import 'package:leaptech_plus/core/utils/spacing.dart';
 import 'package:leaptech_plus/features/posts/data/models/post_comment_model.dart';
+import 'package:leaptech_plus/features/posts/data/models/post_user_model.dart';
+import 'package:leaptech_plus/features/posts/presentation/cubits/posts_cubit.dart';
 
-class CommentBottomSheet extends StatelessWidget {
-  const CommentBottomSheet({super.key, required this.comments});
+class CommentBottomSheet extends StatefulWidget {
+  const CommentBottomSheet(
+      {super.key, required this.comments, required this.postId});
 
   final List<PostCommentModel> comments;
+  final String postId;
+
+  @override
+  State<CommentBottomSheet> createState() => _CommentBottomSheetState();
+}
+
+class _CommentBottomSheetState extends State<CommentBottomSheet> {
+  final TextEditingController _commentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +78,10 @@ class CommentBottomSheet extends StatelessWidget {
           Expanded(
             child: ListView.separated(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-              itemCount: comments.length,
+              itemCount: widget.comments.length,
               separatorBuilder: (_, __) => SizedBox(height: 10.h),
               itemBuilder: (context, index) {
-                final comment = comments[index];
+                final comment = widget.comments[index];
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -149,7 +163,7 @@ class CommentBottomSheet extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20.r),
                       ),
                       child: TextField(
-                        // controller: _commentController,
+                        controller: _commentController,
                         decoration: const InputDecoration(
                           hintText: "Add a comment...",
                           border: InputBorder.none,
@@ -161,13 +175,52 @@ class CommentBottomSheet extends StatelessWidget {
                   // Send button
                   GestureDetector(
                     onTap: () {
-                      //
+                      if (_commentController.text.isNotEmpty) {
+                        context.read<PostsCubit>().addComment(
+                              postId: widget.postId.toString(),
+                              userId: getCurrentUser()!.id,
+                              commentText: _commentController.text,
+                            );
+                        if (context.read<PostsCubit>().state
+                            is PostsAddCommentSuccess) {}
+                        setState(() {
+                          widget.comments.add(
+                            PostCommentModel(
+                              id: '',
+                              createdAt: DateTime.now(),
+                              postId: widget.postId,
+                              userId: getCurrentUser()!.id,
+                              content: _commentController.text,
+                              user: PostUserModel(
+                                id: getCurrentUser()!.id,
+                                fullName: getCurrentUser()!.fullName,
+                                imageUrl: getCurrentUser()!.imageUrl!,
+                              ),
+                            ),
+                          );
+                        });
+                      }
+                      _commentController.clear();
                     },
-                    child: CircleAvatar(
-                      radius: 22.r,
-                      backgroundColor: AppColors.primaryColor,
-                      child: const Icon(Icons.send_rounded,
-                          color: Colors.white, size: 20),
+                    child: BlocBuilder<PostsCubit, PostsState>(
+                      buildWhen: (previous, current) =>
+                          current is PostsAddCommentLoading ||
+                          current is PostsAddCommentSuccess ||
+                          current is PostsAddCommentFailure,
+                      builder: (context, state) {
+                        if (state is PostsAddCommentLoading) {
+                          return const CircularProgressIndicator(
+                            color: AppColors.primaryColor,
+                          );
+                        } else {
+                          return CircleAvatar(
+                            radius: 22.r,
+                            backgroundColor: AppColors.primaryColor,
+                            child: const Icon(Icons.send_rounded,
+                                color: Colors.white, size: 20),
+                          );
+                        }
+                      },
                     ),
                   ),
                 ],

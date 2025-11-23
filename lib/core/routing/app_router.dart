@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaptech_plus/core/dependency_injection/dependency_injection.dart';
+import 'package:leaptech_plus/core/widgets/custom_photo_view.dart';
 import 'package:leaptech_plus/features/days_off/presentation/pages/request_day_off_screen.dart';
 import 'package:leaptech_plus/features/home/data/models/event_model.dart';
 import 'package:leaptech_plus/features/home/presentation/cubits/cubit/home_cubit.dart';
@@ -11,6 +13,7 @@ import 'package:leaptech_plus/features/home/presentation/widgets/request_day_off
 import 'package:leaptech_plus/features/login/data/models/user_model.dart';
 import 'package:leaptech_plus/features/login/presentation/cubits/cubit/login_cubit.dart';
 import 'package:leaptech_plus/features/login/presentation/pages/login_screen.dart';
+import 'package:leaptech_plus/features/posts/presentation/cubits/posts_cubit.dart';
 import 'package:leaptech_plus/features/posts/presentation/pages/add_post_screen.dart';
 import 'package:leaptech_plus/features/splash/presentation/pages/splash_screen.dart';
 import 'package:leaptech_plus/main_scaffold.dart';
@@ -59,7 +62,10 @@ class AppRouter {
       ),
       GoRoute(
         path: '/addPostScreen',
-        builder: (context, state) => AddPostScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<PostsCubit>(),
+          child: AddPostScreen(),
+        ),
       ),
       GoRoute(
         path: '/eventDetailsScreen',
@@ -72,6 +78,15 @@ class AppRouter {
         path: '/supabaseTestScreen',
         builder: (context, state) {
           return SupabaseTestScreen();
+        },
+      ),
+      GoRoute(
+        path: '/customPhotoView',
+        builder: (context, state) {
+          var imageUrl = state.extra as String ;
+          return CustomPhotoView(
+            imageUrl: imageUrl,
+          );
         },
       ),
     ],

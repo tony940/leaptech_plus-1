@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:leaptech_plus/core/dependency_injection/dependency_injection.dart';
 import 'package:leaptech_plus/core/functions/get_current_user.dart';
 import 'package:leaptech_plus/core/utils/spacing.dart';
 import 'package:leaptech_plus/features/posts/data/models/post_user_model.dart';
@@ -69,8 +70,12 @@ class PostItemFooter extends StatelessWidget {
               backgroundColor: Colors.transparent,
               builder: (_) => SizedBox(
                 height: MediaQuery.of(context).size.height * 0.75,
-                child: CommentBottomSheet(
-                  comments: postWithRelations.comments,
+                child: BlocProvider.value(
+                  value: context.read<PostsCubit>(),
+                  child: CommentBottomSheet(
+                    postId: postWithRelations.post.id,
+                    comments: postWithRelations.comments,
+                  ),
                 ),
               ),
             );

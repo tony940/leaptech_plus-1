@@ -69,4 +69,42 @@ class PostsCubit extends Cubit<PostsState> {
       },
     );
   }
+
+  //add comment
+  Future<void> addComment({
+    required String postId,
+    required String userId,
+    required String commentText,
+  }) async {
+    emit(PostsAddCommentLoading());
+    print('add comment cubit called');
+    final response = await _postsRepo.addComment(
+      postId: postId,
+      userId: userId,
+      commentText: commentText,
+    );
+    response.fold(
+      (failure) => emit(PostsAddCommentFailure(failure.errorMessage)),
+      (_) => emit(PostsAddCommentSuccess()),
+    );
+  }
+
+  // Add this inside your PostsCubit
+  Future<void> addPost({
+    required String userId,
+    required String? content,
+    List<String>? imageUrls,
+  }) async {
+    emit(PostsAddPostLoading());
+    final response = await _postsRepo.addPost(
+      userId: userId,
+      content: content,
+      imageUrls: imageUrls,
+    );
+    response.fold((failure) => emit(PostsAddPostFailure(failure.errorMessage)),
+        (_) {
+      emit(PostsGetAllPostsSuccess(allPosts));
+      emit(PostsAddPostSuccess());
+    });
+  }
 }

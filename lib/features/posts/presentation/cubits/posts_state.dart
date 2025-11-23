@@ -29,3 +29,23 @@ class PostsToggleLikeFailure extends PostsState {
 class PostsToggleLikeSuccess extends PostsState {
   PostsToggleLikeSuccess();
 }
+
+// Add comment states
+class PostsAddCommentLoading extends PostsState {}
+
+class PostsAddCommentSuccess extends PostsState {}
+
+class PostsAddCommentFailure extends PostsState {
+  final String errorMessage;
+  PostsAddCommentFailure(this.errorMessage);
+}
+
+//add post states
+class PostsAddPostLoading extends PostsState {}
+
+class PostsAddPostSuccess extends PostsState {}
+
+class PostsAddPostFailure extends PostsState {
+  final String errorMessage;
+  PostsAddPostFailure(this.errorMessage);
+}

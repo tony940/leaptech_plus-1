@@ -83,12 +83,49 @@ class PostsRepoImpl implements PostsRepo {
   }
 
   @override
-  Future<Either<Failure, void>> addPost({required PostModel postModel}) {
-    throw UnimplementedError();
+Future<Either<Failure, void>> addPost({
+  required String userId,
+  required String? content,
+  List<String>? imageUrls,
+}) async {
+  try {
+    await _supabaseService.addPost(
+      userId: userId,
+      content: content,
+      imageUrls: imageUrls,
+    );
+    return const Right(null); // success
+  } on PostgrestException catch (e) {
+    return Left(SupbaseFailure.postgrestErrorHandler(e));
+  } on SocketException catch (e) {
+    return Left(Failure(errorMessage: 'No internet connection.'));
+  } catch (e) {
+    return Left(Failure(errorMessage: e.toString()));
   }
+}
+
 
   @override
   Future<Either<Failure, void>> deletePost({required int postId}) {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, void>> addComment({
+    required String postId,
+    required String userId,
+    required String commentText,
+  }) async {
+    try {
+      var response = await _supabaseService.addComment(
+          postId: postId, userId: userId, commentText: commentText);
+      return Right(response);
+    } on PostgrestException catch (e) {
+      return Left(SupbaseFailure.postgrestErrorHandler(e));
+    } on SocketException catch (e) {
+      return Left(Failure(errorMessage: 'No internet connection.'));
+    } catch (e) {
+      return Left(Failure(errorMessage: e.toString()));
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:dartz/dartz.dart';
@@ -21,6 +22,10 @@ class HomeRepoImpl implements HomeRepo {
       var respones = await _homeApiService.getQuoteOfTheDay();
       return Right(respones[0]);
     } on DioException catch (e) {
+      return Left(ServerFailure.dioErrorHandler(e));
+    } on SocketException catch (e) {
+      return Left(Failure(errorMessage: 'No internet connection.'));
+    } catch (e) {
       return Left(Failure(errorMessage: e.toString()));
     }
   }
@@ -32,6 +37,8 @@ class HomeRepoImpl implements HomeRepo {
       return Right(null);
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
+    } on SocketException catch (e) {
+      return Left(Failure(errorMessage: 'No internet connection.'));
     } catch (e) {
       return Left(Failure(errorMessage: e.toString()));
     }
@@ -48,6 +55,8 @@ class HomeRepoImpl implements HomeRepo {
       return Right(events);
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
+    } on SocketException catch (e) {
+      return Left(Failure(errorMessage: 'No internet connection.'));
     } catch (e) {
       return Left(Failure(errorMessage: e.toString()));
     }
@@ -60,6 +69,8 @@ class HomeRepoImpl implements HomeRepo {
       return const Right(null);
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
+    } on SocketException catch (e) {
+      return Left(Failure(errorMessage: 'No internet connection.'));
     } catch (e) {
       return Left(Failure(errorMessage: e.toString()));
     }
