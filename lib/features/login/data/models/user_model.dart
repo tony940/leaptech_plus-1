@@ -17,7 +17,7 @@ class UserModel extends HiveObject {
   final String password;
 
   @HiveField(4)
-  final String role;
+  final String title;
 
   @HiveField(5)
   final String? imageUrl;
@@ -29,7 +29,7 @@ class UserModel extends HiveObject {
     required this.fullName,
     required this.email,
     required this.password,
-    required this.role,
+    required this.title,
     this.imageUrl,
     required this.type,
   });
@@ -41,7 +41,7 @@ class UserModel extends HiveObject {
       fullName: json['full_name'],
       email: json['email'],
       password: json['password'],
-      role: json['role'],
+      title: json['title'],
       imageUrl: json['image_url'],
       type: json['type'],
     );
@@ -53,7 +53,7 @@ class UserModel extends HiveObject {
         'full_name': fullName,
         'email': email,
         'password': password,
-        'role': role,
+        'title': title,
         'image_url': imageUrl,
         'type': type,
       };

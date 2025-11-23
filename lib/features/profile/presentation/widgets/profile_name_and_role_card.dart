@@ -2,17 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:leaptech_plus/core/functions/get_current_date.dart';
 import 'package:leaptech_plus/core/functions/get_current_user.dart';
 import 'package:leaptech_plus/core/themes/app_text_styles.dart';
 import 'package:leaptech_plus/core/utils/spacing.dart';
-import 'package:leaptech_plus/core/widgets/app_button.dart';
 import 'package:leaptech_plus/core/widgets/app_card.dart';
-import 'package:leaptech_plus/features/login/data/models/user_model.dart';
 
-class PorfileNameAndRoleCard extends StatelessWidget {
-  const PorfileNameAndRoleCard({super.key});
+class PorfileNameAndtitleCard extends StatelessWidget {
+  const PorfileNameAndtitleCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +44,7 @@ class PorfileNameAndRoleCard extends StatelessWidget {
                 style: AppTextStyles.font16WhiteBold,
               ),
               Text(
-                user?.role ?? 'No Role',
+                user?.title ?? 'No title',
                 style: AppTextStyles.font14WhiteMedium,
               ),
             ],
@@ -67,7 +63,7 @@ class PorfileNameAndRoleCard extends StatelessWidget {
                 color: Colors.white,
                 size: 20.sp,
               ),
-              onPressed: () {
+              onPressed: () async {
                 context.pushReplacement('/loginScreen');
               },
             ),

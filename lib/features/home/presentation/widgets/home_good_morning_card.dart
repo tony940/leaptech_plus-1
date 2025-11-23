@@ -9,12 +9,12 @@ class HomeGoodMorningCard extends StatelessWidget {
   const HomeGoodMorningCard({
     super.key,
     required this.name,
-    required this.role,
+    required this.title,
     required this.image,
     required this.type,
   });
   final String name;
-  final String role;
+  final String title;
   final String image;
   final String type;
 
@@ -39,7 +39,7 @@ class HomeGoodMorningCard extends StatelessWidget {
                 style: AppTextStyles.font16WhiteBold,
               ),
               Text(
-                role,
+                title,
                 style: AppTextStyles.font14WhiteMedium,
               ),
               Text(

@@ -25,6 +25,8 @@ class LoginRepoImpl implements LoginRepo {
 
       // Parse user model
       final user = UserModel.fromJson(response!);
+      print(user);
+      print(user.imageUrl);
 
       // Save user in Hive
       try {

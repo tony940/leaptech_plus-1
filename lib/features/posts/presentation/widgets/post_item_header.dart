@@ -15,6 +15,23 @@ class PostItemHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = getCurrentUser();
+
+    // If user not loaded, hide delete button
+    if (currentUser == null) {
+      return _buildHeader(context, showDeleteButton: false);
+    }
+
+    // Check if current user is author or admin
+    final isAuthorOrAdmin = (postModel.userId != null &&
+            postModel.userId.isNotEmpty &&
+            postModel.userId == currentUser.id) ||
+        (currentUser.type.trim().toLowerCase() == 'admin');
+
+    return _buildHeader(context, showDeleteButton: isAuthorOrAdmin);
+  }
+
+  Widget _buildHeader(BuildContext context, {required bool showDeleteButton}) {
     return Row(
       children: [
         CircleAvatar(
@@ -25,54 +42,60 @@ class PostItemHeader extends StatelessWidget {
               : CachedNetworkImageProvider(postModel.user.imageUrl!),
         ),
         horizontalSpace(10),
-        Text(
-          postModel.user.fullName,
-          style: AppTextStyles.font14BlackMedium,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              postModel.user.fullName,
+              style: AppTextStyles.font14BlackMedium,
+            ),
+            Text(
+              '${postModel.createdAt.day}/${postModel.createdAt.month}/${postModel.createdAt.year} at ${postModel.createdAt.hour}:${postModel.createdAt.minute.toString().padLeft(2, '0')}',
+              style: AppTextStyles.font12LightBlackWeight500,
+            ),
+          ],
         ),
         Spacer(),
-        postModel.userId == getCurrentUser()!.id
-            ? IconButton(
-                onPressed: () {
-                  final cubitContext = context; // capture parent context
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        backgroundColor: Colors.white,
-                        title: Text('Delete Post'),
-                        content:
-                            Text('Are you sure you want to delete this post?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text('Cancel',
-                                style: AppTextStyles.font14BlackMedium),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              cubitContext.read<PostsCubit>().deletePost(
-                                    postId: postModel.id,
-                                  );
-                              Navigator.pop(context);
-                            },
-                            child: Text(
-                              'Delete',
-                              style: AppTextStyles.font14BlackMedium
-                                  .copyWith(color: Colors.redAccent),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+        if (showDeleteButton)
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (dialogContext) {
+                  return AlertDialog(
+                    backgroundColor: Colors.white,
+                    title: Text('Delete Post'),
+                    content: Text('Are you sure you want to delete this post?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(dialogContext),
+                        child: Text('Cancel',
+                            style: AppTextStyles.font14BlackMedium),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.read<PostsCubit>().deletePost(
+                                postId: postModel.id,
+                              );
+                          Navigator.pop(dialogContext);
+                        },
+                        child: Text(
+                          'Delete',
+                          style: AppTextStyles.font14BlackMedium
+                              .copyWith(color: Colors.redAccent),
+                        ),
+                      ),
+                    ],
                   );
                 },
-                icon: Icon(
-                  Icons.delete_outline_rounded,
-                  color: Colors.redAccent,
-                  size: 20.sp,
-                ),
-              )
-            : const SizedBox(),
+              );
+            },
+            icon: Icon(
+              Icons.delete_outline_rounded,
+              color: Colors.redAccent,
+              size: 20.sp,
+            ),
+          ),
       ],
     );
   }

@@ -92,7 +92,8 @@ class PostItemFooter extends StatelessWidget {
           },
           child: Row(
             children: [
-              const Icon(Icons.mode_comment_outlined, color: Colors.black54),
+              Icon(Icons.mode_comment_outlined,
+                  color: Colors.black54, size: 22.sp),
               horizontalSpace(4),
               Text(
                 postWithRelations.comments.length.toString(),

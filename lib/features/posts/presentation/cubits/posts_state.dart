@@ -59,3 +59,13 @@ class PostsDeletePostFailure extends PostsState {
   final String errorMessage;
   PostsDeletePostFailure(this.errorMessage);
 }
+
+//Delete comment States
+class PostsDeleteCommentLoading extends PostsState {}
+
+class PostsDeleteCommentSuccess extends PostsState {}
+
+class PostsDeleteCommentFailure extends PostsState {
+  final String errorMessage;
+  PostsDeleteCommentFailure(this.errorMessage);
+}

@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const PorfileNameAndRoleCard(),
+        const PorfileNameAndtitleCard(),
         verticalSpace(20),
         Text(
           "Sabri's performances",
