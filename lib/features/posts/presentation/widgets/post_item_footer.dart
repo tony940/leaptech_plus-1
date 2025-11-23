@@ -40,11 +40,21 @@ class PostItemFooter extends StatelessWidget {
               );
               final isLiked =
                   post.likes.any((user) => user.id == getCurrentUser()!.id);
+
               return Row(
                 children: [
-                  Icon(
-                    isLiked ? Icons.favorite : Icons.favorite_outline,
-                    color: isLiked ? Colors.red : Colors.grey,
+                  // ❤️ Animated heart
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    transitionBuilder: (child, animation) {
+                      return ScaleTransition(scale: animation, child: child);
+                    },
+                    child: Icon(
+                      isLiked ? Icons.favorite : Icons.favorite_outline,
+                      key: ValueKey<bool>(isLiked), // important for animation
+                      color: isLiked ? Colors.red : Colors.grey,
+                      size: 22.sp,
+                    ),
                   ),
                   horizontalSpace(4),
                   Text(

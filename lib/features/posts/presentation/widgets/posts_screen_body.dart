@@ -51,60 +51,81 @@ class _PostsScreenBodyState extends State<PostsScreenBody> {
             }
             if (state is PostsGetAllPostsSuccess) {
               if (state.posts.isEmpty) {
-                return Center(
-                  child: Column(
-                    children: [
-                      LottieBuilder.asset(
-                        'assets/animations/empty.json',
-                        width: 400.w,
-                        height: 400.h,
-                      ),
-                      verticalSpace(16),
-                      Text(
-                        'No posts yet',
-                        style: AppTextStyles.font14BlackRegular,
-                      ),
-                    ],
-                  ),
-                );
+                return _buildPostsEmpty();
               } else {
-                return Expanded(
-                  child: RefreshIndicator(
-                    color: AppColors.primaryColor,
-                    backgroundColor: Colors.white,
-                    onRefresh: () async {
-                      context.read<PostsCubit>().getAllPosts();
-                    },
-                    child: ListView.builder(
-                      itemCount: state.posts.length,
-                      itemBuilder: (context, index) {
-                        return PostItem(postWithRelation: state.posts[index]);
-                      },
-                    ),
-                  ),
-                );
+                return _buildPostsLoadedSuccess(context, state);
               }
             }
             if (state is PostsGetAllPostsFailure) {
-              return Center(
-                child: Column(
-                  children: [
-                    Text(state.errorMessage),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<PostsCubit>().getAllPosts();
-                      },
-                      child: Text('Retry'),
-                    ),
-                  ],
-                ),
-              );
+              return _buildPostsFailure(state, context);
             } else {
               return SizedBox.shrink();
             }
           },
         ),
       ],
+    );
+  }
+
+  _buildPostsFailure(PostsGetAllPostsFailure state, BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Text(state.errorMessage),
+          ElevatedButton(
+            onPressed: () {
+              context.read<PostsCubit>().getAllPosts();
+            },
+            child: Text('Retry'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _buildPostsLoadedSuccess(
+      BuildContext context, PostsGetAllPostsSuccess state) {
+    return Expanded(
+      child: RefreshIndicator(
+        color: AppColors.primaryColor,
+        backgroundColor: Colors.white,
+        onRefresh: () async {
+          context.read<PostsCubit>().getAllPosts();
+        },
+        child: ListView.builder(
+          itemCount: state.posts.length,
+          itemBuilder: (context, index) {
+            return PostItem(postWithRelation: state.posts[index]);
+          },
+        ),
+      ),
+    );
+  }
+
+  _buildPostsEmpty() {
+    return Expanded(
+      child: RefreshIndicator(
+        color: AppColors.primaryColor,
+        backgroundColor: Colors.white,
+        onRefresh: () async {
+          context.read<PostsCubit>().getAllPosts();
+        },
+        child: ListView(
+          children: [
+            LottieBuilder.asset(
+              'assets/animations/empty.json',
+              width: 400.w,
+              height: 400.h,
+            ),
+            Center(
+              child: Text(
+                'No posts yet',
+                style: AppTextStyles.font14BlackRegular,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
