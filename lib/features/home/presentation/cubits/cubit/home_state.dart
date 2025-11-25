@@ -35,3 +35,8 @@ final class HomeEventSuccess extends HomeState {
   final List<EventModel> events;
   HomeEventSuccess(this.events);
 }
+
+final class HomeEventInvitedEmployeesSuccess extends HomeState {
+  final List<InvitedEmployeeModel> invitedEmployees;
+  HomeEventInvitedEmployeesSuccess(this.invitedEmployees);
+}

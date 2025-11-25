@@ -8,4 +8,5 @@ abstract class HomeRepo {
   Future<Either<Failure, List<EventModel>>> getAllEvents();
   Future<Either<Failure, void>> deleteEvent({required int eventId});
   Future<Either<Failure, void>> createEvent({required EventModel event});
+  Future<Either<Failure, List<Map<String, dynamic>>>> getEventInvitedEmployees({required int eventId});
 }

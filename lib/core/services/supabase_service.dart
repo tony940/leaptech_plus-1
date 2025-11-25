@@ -56,6 +56,28 @@ class SupabaseService {
   }
 
   Future<List<Map<String, dynamic>>> getAllEvents() async {
+    // First get the current user ID
+    final userId = currentUser?.id;
+    
+    if (userId == null) {
+      return []; // Return empty list if user is not logged in
+    }
+    
+    // Get event IDs that the user is invited to
+    final invitationResponse = await _client
+        .from('event_invitations')
+        .select('event_id')
+        .eq('employee_id', userId);
+        
+    final invitationData = invitationResponse as List<dynamic>;
+    final invitedEventIds = invitationData.map((e) => e['event_id'] as int).toList();
+    
+    // If user has no invitations, return empty list
+    if (invitedEventIds.isEmpty) {
+      return [];
+    }
+    
+    // Get events that the user is invited to
     final response = await _client.from('events').select('''
       id,
       name,
@@ -64,7 +86,9 @@ class SupabaseService {
       duration,
       location,
       organizer:employees(full_name)
-    ''').order('event_time', ascending: true);
+    ''')
+    .inFilter('id', invitedEventIds) // Only get events user is invited to
+    .order('event_time', ascending: true);
 
     final data = response as List<dynamic>;
     final now = DateTime.now();
@@ -230,5 +254,22 @@ class SupabaseService {
     final response = await _client.from('employees').select();
 
     return response;
+  }
+
+  // Get employees invited to a specific event
+  Future<List<Map<String, dynamic>>> getEventInvitedEmployees({required int eventId}) async {
+    final response = await _client.from('event_invitations').select('''
+      employee:employees(id, full_name, image_url)
+    ''').eq('event_id', eventId);
+
+    final data = response as List<dynamic>;
+    
+    return data.map((e) {
+      return {
+        'id': e['employee']['id'],
+        'full_name': e['employee']['full_name'],
+        'image_url': e['employee']['image_url'],
+      };
+    }).toList();
   }
 }

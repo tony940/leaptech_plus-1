@@ -48,10 +48,7 @@ class HomeRepoImpl implements HomeRepo {
   Future<Either<Failure, List<EventModel>>> getAllEvents() async {
     try {
       final response = await _supabaseService.getAllEvents();
-      print(response);
-
       final events = response.map((e) => EventModel.fromMap(e)).toList();
-      print(events);
       return Right(events);
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
@@ -67,6 +64,20 @@ class HomeRepoImpl implements HomeRepo {
     try {
       await _supabaseService.deleteEvent(id: eventId);
       return const Right(null);
+    } on PostgrestException catch (e) {
+      return Left(SupbaseFailure.postgrestErrorHandler(e));
+    } on SocketException catch (e) {
+      return Left(Failure(errorMessage: 'No internet connection.'));
+    } catch (e) {
+      return Left(Failure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Map<String, dynamic>>>> getEventInvitedEmployees({required int eventId}) async {
+    try {
+      final response = await _supabaseService.getEventInvitedEmployees(eventId: eventId);
+      return Right(response);
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
     } on SocketException catch (e) {
