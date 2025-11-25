@@ -51,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               cubit.getAllEvents();
             },
             child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -151,7 +152,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   "No upcoming events",
                                   style: TextStyle(color: Colors.grey),
                                 ),
-                                verticalSpace(200),
                               ],
                             ),
                           );
