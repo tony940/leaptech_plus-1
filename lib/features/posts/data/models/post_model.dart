@@ -22,9 +22,9 @@ class PostModel {
       id: map['id'] as String,
       userId: map['user_id'] as String,
       content: map['content'] as String?,
-      createdAt: DateTime.parse(map['created_at'] as String),
+      createdAt: DateTime.parse(map['created_at'] as String).toLocal(),
       updatedAt: map['updated_at'] != null
-          ? DateTime.parse(map['updated_at'] as String)
+          ? DateTime.parse(map['updated_at'] as String).toLocal()
           : null,
       user: PostUserModel.fromMap(map['user'] as Map<String, dynamic>),
     );

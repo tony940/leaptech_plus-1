@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:leaptech_plus/core/dependency_injection/dependency_injection.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
 import 'package:leaptech_plus/core/themes/app_text_styles.dart';
+import 'package:leaptech_plus/features/days_off/presentation/cubits/days_off_cubit.dart';
 import 'package:leaptech_plus/features/days_off/presentation/pages/days_off_screen.dart';
 import 'package:leaptech_plus/features/home/presentation/pages/home_screen.dart';
 import 'package:leaptech_plus/features/members/presentation/cubits/cubit/member_cubit.dart';
@@ -26,7 +27,10 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   final List<Widget> screens = [
     HomeScreen(),
-    DaysOffScreen(),
+    BlocProvider(
+      create: (context) => getIt<DaysOffCubit>(),
+      child: DaysOffScreen(),
+    ),
     PostsScreen(),
     BlocProvider(
       create: (context) => getIt<MemberCubit>(),

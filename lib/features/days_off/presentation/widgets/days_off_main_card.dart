@@ -6,12 +6,17 @@ import 'package:leaptech_plus/core/utils/spacing.dart';
 import 'package:leaptech_plus/core/widgets/app_card.dart';
 
 class DaysOffMainCard extends StatelessWidget {
-  const DaysOffMainCard({
-    super.key,
-  });
+  final Map<String, int>? balance;
+
+  const DaysOffMainCard({super.key, this.balance});
 
   @override
   Widget build(BuildContext context) {
+    // Default values if balance is not provided
+    final sickRemaining = balance?['sickRemaining'] ?? 7;
+    final personalRemaining = balance?['personalRemaining'] ?? 7;
+    final annualRemaining = balance?['annualRemaining'] ?? 7;
+
     return AppCard(
       image: 'assets/images/home_intro.png',
       child: Padding(
@@ -51,7 +56,7 @@ class DaysOffMainCard extends StatelessWidget {
                             color: Colors.redAccent, size: 26.sp),
                         verticalSpace(4),
                         Text(
-                          "5/7",
+                          "$sickRemaining/7",
                           style: TextStyle(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
@@ -104,7 +109,7 @@ class DaysOffMainCard extends StatelessWidget {
                             color: Colors.amber.shade700, size: 26.sp),
                         verticalSpace(4),
                         Text(
-                          "3/7",
+                          "$personalRemaining/7",
                           style: TextStyle(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
@@ -157,7 +162,7 @@ class DaysOffMainCard extends StatelessWidget {
                             color: Colors.green, size: 26.sp),
                         verticalSpace(4),
                         Text(
-                          "5/5",
+                          "$annualRemaining/7",
                           style: TextStyle(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold,

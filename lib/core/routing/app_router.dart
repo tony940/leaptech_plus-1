@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaptech_plus/core/dependency_injection/dependency_injection.dart';
 import 'package:leaptech_plus/core/widgets/custom_photo_view.dart';
+import 'package:leaptech_plus/features/days_off/presentation/cubits/days_off_cubit.dart';
 import 'package:leaptech_plus/features/days_off/presentation/pages/request_day_off_screen.dart';
 import 'package:leaptech_plus/features/home/data/models/event_model.dart';
 import 'package:leaptech_plus/features/home/presentation/cubits/cubit/home_cubit.dart';
@@ -59,7 +60,10 @@ class AppRouter {
       ),
       GoRoute(
         path: '/requestDayOffScren',
-        builder: (context, state) => RequestDayOffScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<DaysOffCubit>(),
+          child: RequestDayOffScreen(),
+        ),
       ),
       GoRoute(
         path: '/addPostScreen',
