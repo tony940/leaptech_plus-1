@@ -24,15 +24,22 @@ class UserModel extends HiveObject {
   @HiveField(6)
   final String type;
 
-  UserModel({
-    required this.id,
-    required this.fullName,
-    required this.email,
-    required this.password,
-    required this.title,
-    this.imageUrl,
-    required this.type,
-  });
+  @HiveField(7)
+  final String? phone;
+
+  @HiveField(8)
+  final String? branch;
+
+  UserModel(
+      {required this.id,
+      required this.fullName,
+      required this.email,
+      required this.password,
+      required this.title,
+      this.imageUrl,
+      required this.type,
+      this.phone,
+      this.branch});
 
   /// Factory constructor from JSON
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -44,6 +51,8 @@ class UserModel extends HiveObject {
       title: json['title'],
       imageUrl: json['image_url'],
       type: json['type'],
+      phone: json['phone'],
+      branch: json['branch'],
     );
   }
 
@@ -56,5 +65,6 @@ class UserModel extends HiveObject {
         'title': title,
         'image_url': imageUrl,
         'type': type,
+        'phone': phone,
       };
 }

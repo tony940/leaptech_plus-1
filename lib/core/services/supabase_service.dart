@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:leaptech_plus/features/days_off/presentation/widgets/day_off_list_item.dart';
 import 'package:leaptech_plus/features/home/data/models/event_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -218,5 +219,13 @@ class SupabaseService {
     } catch (e) {
       throw Exception('Unknown error uploading image: $e');
     }
+  }
+
+  //get all members
+
+  Future<List<Map<String, dynamic>>> getAllMembers() async {
+    final response = await _client.from('employees').select();
+
+    return response;
   }
 }

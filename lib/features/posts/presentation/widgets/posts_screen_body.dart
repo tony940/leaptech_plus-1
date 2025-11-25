@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:leaptech_plus/core/dependency_injection/dependency_injection.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
 import 'package:leaptech_plus/core/themes/app_text_styles.dart';
+import 'package:leaptech_plus/core/utils/my_toast.dart';
 import 'package:leaptech_plus/core/utils/spacing.dart';
 import 'package:leaptech_plus/core/widgets/app_card.dart';
 import 'package:leaptech_plus/features/posts/data/models/post_model.dart';
@@ -40,7 +41,16 @@ class _PostsScreenBodyState extends State<PostsScreenBody> {
             style: AppTextStyles.font16WhiteBold,
           ),
         ),
-        BlocBuilder<PostsCubit, PostsState>(
+        BlocConsumer<PostsCubit, PostsState>(
+          listener: (context, state) {
+            if (state is PostsDeletePostFailure ||
+                state is PostsDeleteCommentFailure ||
+                state is PostsAddCommentFailure ||
+                state is PostsAddPostFailure ||
+                state is PostsToggleLikeFailure) {
+              MyToast.error(context, 'Something went wrong. Please try again.');
+            }
+          },
           buildWhen: (previous, current) =>
               current is PostsGetAllPostsSuccess ||
               current is PostsGetAllPostsFailure ||

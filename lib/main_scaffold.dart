@@ -1,12 +1,15 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leaptech_plus/core/dependency_injection/dependency_injection.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
 import 'package:leaptech_plus/core/themes/app_text_styles.dart';
 import 'package:leaptech_plus/features/days_off/presentation/pages/days_off_screen.dart';
 import 'package:leaptech_plus/features/home/presentation/pages/home_screen.dart';
+import 'package:leaptech_plus/features/members/presentation/cubits/cubit/member_cubit.dart';
 import 'package:leaptech_plus/features/members/presentation/pages/members_screen.dart';
 import 'package:leaptech_plus/features/posts/presentation/pages/posts_screen.dart';
 import 'package:leaptech_plus/features/profile/presentation/pages/profile_screen.dart';
@@ -25,8 +28,10 @@ class _MainScaffoldState extends State<MainScaffold> {
     HomeScreen(),
     DaysOffScreen(),
     PostsScreen(),
-    MembersScreen(),
-    ProfileScreen(),
+    BlocProvider(
+      create: (context) => getIt<MemberCubit>(),
+      child: MembersScreen(),
+    ),
     ProfileScreen(),
   ];
 

@@ -22,7 +22,7 @@ class PostsCubit extends Cubit<PostsState> {
         .fold((failure) => emit(PostsGetAllPostsFailure(failure.errorMessage)),
             (posts) {
       allPosts = posts;
-      emit(PostsGetAllPostsSuccess(posts));
+      if (!isClosed) emit(PostsGetAllPostsSuccess(posts));
     });
   }
 

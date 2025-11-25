@@ -13,6 +13,7 @@ import 'package:leaptech_plus/features/home/presentation/widgets/request_day_off
 import 'package:leaptech_plus/features/login/data/models/user_model.dart';
 import 'package:leaptech_plus/features/login/presentation/cubits/cubit/login_cubit.dart';
 import 'package:leaptech_plus/features/login/presentation/pages/login_screen.dart';
+import 'package:leaptech_plus/features/members/presentation/pages/member_details_screen.dart';
 import 'package:leaptech_plus/features/posts/presentation/cubits/posts_cubit.dart';
 import 'package:leaptech_plus/features/posts/presentation/pages/add_post_screen.dart';
 import 'package:leaptech_plus/features/splash/presentation/pages/splash_screen.dart';
@@ -83,9 +84,18 @@ class AppRouter {
       GoRoute(
         path: '/customPhotoView',
         builder: (context, state) {
-          var imageUrl = state.extra as String ;
+          var imageUrl = state.extra as String;
           return CustomPhotoView(
             imageUrl: imageUrl,
+          );
+        },
+      ),
+      GoRoute(
+        path: '/memberDetailsScreen',
+        builder: (context, state) {
+          var member = state.extra as UserModel;
+          return MemberDetailsScreen(
+            member: member,
           );
         },
       ),
