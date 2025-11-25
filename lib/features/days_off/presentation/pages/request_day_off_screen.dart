@@ -42,6 +42,19 @@ class _RequestDayOffScreenState extends State<RequestDayOffScreen> {
       initialDate: now,
       firstDate: DateTime(now.year - 1),
       lastDate: DateTime(now.year + 2),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors
+                  .primaryColor, // Header background & selected date color
+              onPrimary: Colors.white, // Header text color
+              onSurface: AppColors.secondaryColor, // Body text color
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null) {
       setState(() {
@@ -238,12 +251,19 @@ class _RequestDayOffScreenState extends State<RequestDayOffScreen> {
                 ),
                 SizedBox(height: 8.h),
                 TextField(
+                  onTapOutside: (_) => FocusScope.of(context).unfocus(),
                   controller: descriptionController,
                   maxLines: 4,
                   decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                      borderSide: BorderSide(
+                          color: AppColors.secondaryColor, width: 2.0),
+                    ),
                     hintText: "Enter the reason for your day off",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.r),
+                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
                     ),
                   ),
                 ),
