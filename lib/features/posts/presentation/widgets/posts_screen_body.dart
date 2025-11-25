@@ -153,7 +153,10 @@ class _PostsScreenBodyState extends State<PostsScreenBody> {
                     userId: 'userId',
                     createdAt: DateTime.now(),
                     user: PostUserModel(
-                        id: 'id', fullName: 'fullName', imageUrl: 'imageUrl')),
+                        id: 'id',
+                        fullName: 'fullName',
+                        imageUrl:
+                            'https://fastly.picsum.photos/id/230/200/300.jpg?hmac=pyhlpgJN2oBeEzhJbnJYrCsLoJM6MKd_NUQGIQhVx5k')),
                 comments: [],
                 likes: [],
                 images: [],

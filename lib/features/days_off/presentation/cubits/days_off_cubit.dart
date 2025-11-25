@@ -47,7 +47,7 @@ class DaysOffCubit extends Cubit<DaysOffState> {
       final balance = await _daysOffRepo.getEmployeeLeaveBalance(employeeId);
       emit(LeaveBalanceLoaded(balance));
     } catch (e) {
-      if (!isClosed) return;
+      if (isClosed) return;
       emit(LeaveBalanceError(e.toString()));
     }
   }

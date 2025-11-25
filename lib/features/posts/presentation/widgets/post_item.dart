@@ -49,6 +49,7 @@ class PostItem extends StatelessWidget {
             style: AppTextStyles.font12BlackRegular,
           ),
           verticalSpace(20),
+
           PostItemImage(
             images: postWithRelation.images,
           ),

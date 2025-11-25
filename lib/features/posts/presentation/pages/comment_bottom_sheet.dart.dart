@@ -24,6 +24,19 @@ class CommentBottomSheet extends StatefulWidget {
 class _CommentBottomSheetState extends State<CommentBottomSheet> {
   final TextEditingController _commentController = TextEditingController();
 
+  bool isSendButtonActive = false;
+
+  @override
+  void initState() {
+    _commentController.addListener(() {
+      setState(() {
+        isSendButtonActive = _commentController.text.isNotEmpty;
+      });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -215,7 +228,9 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                         } else {
                           return CircleAvatar(
                             radius: 22.r,
-                            backgroundColor: AppColors.primaryColor,
+                            backgroundColor: isSendButtonActive
+                                ? AppColors.primaryColor
+                                : Colors.grey.shade300,
                             child: const Icon(Icons.send_rounded,
                                 color: Colors.white, size: 20),
                           );
