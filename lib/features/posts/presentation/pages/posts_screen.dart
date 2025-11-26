@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leaptech_plus/core/dependency_injection/dependency_injection.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
-import 'package:leaptech_plus/core/themes/app_text_styles.dart';
-import 'package:leaptech_plus/core/widgets/app_card.dart';
 import 'package:leaptech_plus/features/posts/presentation/cubits/posts_cubit.dart';
 import 'package:leaptech_plus/features/posts/presentation/widgets/posts_screen_body.dart';
 

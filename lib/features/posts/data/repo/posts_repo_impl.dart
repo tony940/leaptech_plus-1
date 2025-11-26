@@ -53,7 +53,7 @@ class PostsRepoImpl implements PostsRepo {
       return Right(posts);
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
-    } on SocketException catch (e) {
+    } on SocketException {
       return Left(Failure(
           errorMessage:
               "No internet connection detected. Please check your network and try again."));
@@ -76,7 +76,7 @@ class PostsRepoImpl implements PostsRepo {
       return const Right(null);
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
-    } on SocketException catch (e) {
+    } on SocketException {
       return Left(Failure(errorMessage: 'No internet connection.'));
     } catch (e) {
       return Left(Failure(errorMessage: e.toString()));
@@ -98,7 +98,7 @@ class PostsRepoImpl implements PostsRepo {
       return const Right(null); // success
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
-    } on SocketException catch (e) {
+    } on SocketException {
       return Left(Failure(errorMessage: 'No internet connection.'));
     } catch (e) {
       return Left(Failure(errorMessage: e.toString()));
@@ -112,7 +112,7 @@ class PostsRepoImpl implements PostsRepo {
       return Right(null);
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
-    } on SocketException catch (e) {
+    } on SocketException {
       return Left(Failure(errorMessage: 'No internet connection.'));
     } catch (e) {
       return Left(Failure(errorMessage: e.toString()));
@@ -131,7 +131,7 @@ class PostsRepoImpl implements PostsRepo {
       return Right(response);
     } on PostgrestException catch (e) {
       return Left(SupbaseFailure.postgrestErrorHandler(e));
-    } on SocketException catch (e) {
+    } on SocketException {
       return Left(Failure(errorMessage: 'No internet connection.'));
     } catch (e) {
       return Left(Failure(errorMessage: e.toString()));

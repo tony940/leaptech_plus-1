@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:leaptech_plus/features/days_off/presentation/widgets/day_off_list_item.dart';
 import 'package:leaptech_plus/features/home/data/models/event_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

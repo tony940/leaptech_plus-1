@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaptech_plus/core/functions/get_current_date.dart';
 import 'package:leaptech_plus/core/functions/get_current_user.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
@@ -14,7 +13,6 @@ import 'package:leaptech_plus/features/home/presentation/widgets/home_date_card.
 import 'package:leaptech_plus/features/home/presentation/widgets/home_good_morning_card.dart';
 import 'package:leaptech_plus/features/home/presentation/widgets/home_qoute_card.dart';
 import 'package:leaptech_plus/features/home/presentation/widgets/upcoming_event_card.dart';
-import 'package:leaptech_plus/features/login/data/models/user_model.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeScreen extends StatefulWidget {

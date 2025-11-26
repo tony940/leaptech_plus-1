@@ -148,3 +148,7 @@ class MemberDetailsScreen extends StatelessWidget {
     );
   }
 }
+
+error() {
+  throw FlutterError('hello world');
+}

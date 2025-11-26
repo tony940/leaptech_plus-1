@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:leaptech_plus/core/functions/get_current_date.dart';
 import 'package:leaptech_plus/core/functions/get_current_user.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
 import 'package:leaptech_plus/core/themes/app_text_styles.dart';
@@ -102,16 +101,10 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                     CircleAvatar(
                       radius: 18.r,
                       backgroundColor: AppColors.primaryColor.withOpacity(0.2),
-                      child: comment.user.imageUrl != null
-                          ? CircleAvatar(
+                      child: CircleAvatar(
                               radius: 18.r,
                               backgroundImage:
-                                  NetworkImage(comment.user.imageUrl!),
-                            )
-                          : Icon(
-                              Icons.person,
-                              color: AppColors.primaryColor,
-                              size: 20.sp,
+                                  NetworkImage(comment.user.imageUrl),
                             ),
                     ),
                     horizontalSpace(10),

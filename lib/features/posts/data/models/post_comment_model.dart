@@ -1,5 +1,4 @@
 import 'package:leaptech_plus/features/posts/data/models/post_user_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PostCommentModel {
   final String id;

@@ -29,8 +29,4 @@ class DaysOffModel extends DaysOffEntity {
     );
   }
 
-  @override
-  Map<String, dynamic> toJson() {
-    return super.toJson();
-  }
 }

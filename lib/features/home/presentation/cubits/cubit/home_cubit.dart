@@ -48,9 +48,8 @@ class HomeCubit extends Cubit<HomeState> {
     response.fold(
       (failure) => emit(HomeEventFailure(failure.errorMessage)),
       (employees) {
-        final invitedEmployees = employees
-            .map((e) => InvitedEmployeeModel.fromMap(e))
-            .toList();
+        final invitedEmployees =
+            employees.map((e) => InvitedEmployeeModel.fromMap(e)).toList();
         emit(HomeEventInvitedEmployeesSuccess(invitedEmployees));
       },
     );

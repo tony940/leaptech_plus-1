@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leaptech_plus/core/services/shared_pref_service.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {

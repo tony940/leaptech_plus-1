@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +9,6 @@ import 'package:leaptech_plus/features/days_off/presentation/pages/request_day_o
 import 'package:leaptech_plus/features/home/data/models/event_model.dart';
 import 'package:leaptech_plus/features/home/presentation/cubits/cubit/home_cubit.dart';
 import 'package:leaptech_plus/features/home/presentation/pages/event_details_screen.dart';
-import 'package:leaptech_plus/features/home/presentation/widgets/request_day_off_button.dart';
 import 'package:leaptech_plus/features/login/data/models/user_model.dart';
 import 'package:leaptech_plus/features/login/presentation/cubits/cubit/login_cubit.dart';
 import 'package:leaptech_plus/features/login/presentation/pages/login_screen.dart';

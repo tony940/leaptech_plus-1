@@ -4,7 +4,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaptech_plus/core/dependency_injection/dependency_injection.dart';
 import 'package:leaptech_plus/core/routing/app_router.dart';
 import 'package:leaptech_plus/core/services/shared_pref_service.dart';
-import 'package:leaptech_plus/core/services/supabase_service.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
 import 'package:leaptech_plus/features/login/data/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -45,7 +44,6 @@ class LeapTechPlusAPP extends StatelessWidget {
         child: MaterialApp.router(
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
-          useInheritedMediaQuery: true,
           theme: ThemeData(
             drawerTheme: DrawerThemeData(
               backgroundColor: AppColors.white,

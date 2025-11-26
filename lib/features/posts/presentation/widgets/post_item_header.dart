@@ -23,8 +23,7 @@ class PostItemHeader extends StatelessWidget {
     }
 
     // Check if current user is author or admin
-    final isAuthorOrAdmin = (postModel.userId != null &&
-            postModel.userId.isNotEmpty &&
+    final isAuthorOrAdmin = (postModel.userId.isNotEmpty &&
             postModel.userId == currentUser.id) ||
         (currentUser.type.trim().toLowerCase() == 'admin');
 
@@ -37,9 +36,7 @@ class PostItemHeader extends StatelessWidget {
         CircleAvatar(
           radius: 20,
           backgroundColor: AppColors.primaryColor,
-          backgroundImage: postModel.user.imageUrl == null
-              ? null
-              : CachedNetworkImageProvider(postModel.user.imageUrl!),
+          backgroundImage: CachedNetworkImageProvider(postModel.user.imageUrl),
         ),
         horizontalSpace(10),
         Column(

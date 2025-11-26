@@ -48,7 +48,7 @@ class DaysOffRepoImpl implements DaysOffRepo {
           .select()
           .single();
 
-      return DaysOffModel.fromJson(response as Map<String, dynamic>);
+      return DaysOffModel.fromJson(response);
     } catch (e) {
       rethrow;
     }

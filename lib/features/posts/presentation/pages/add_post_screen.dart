@@ -11,9 +11,6 @@ import 'package:leaptech_plus/core/themes/app_text_styles.dart';
 import 'package:leaptech_plus/core/utils/my_toast.dart';
 import 'package:leaptech_plus/core/widgets/app_button.dart';
 import 'package:leaptech_plus/core/widgets/app_text_field.dart';
-import 'package:leaptech_plus/features/posts/data/models/post_model.dart';
-import 'package:leaptech_plus/features/posts/data/models/post_user_model.dart';
-import 'package:leaptech_plus/features/posts/data/models/post_with_relation_model.dart';
 import 'package:leaptech_plus/features/posts/presentation/cubits/posts_cubit.dart';
 
 class AddPostScreen extends StatefulWidget {
@@ -38,8 +35,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
   }
 
   Future<void> pickImages() async {
-    final List<XFile>? images = await picker.pickMultiImage();
-    if (images != null && images.isNotEmpty) {
+    final List<XFile> images = await picker.pickMultiImage();
+    if (images.isNotEmpty) {
       if (!mounted) return;
       setState(() {
         attachedImages.addAll(images.map((e) => File(e.path)));
@@ -67,7 +64,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       for (var file in attachedImages) {
         if (_isCancelled) return; // stop if page disposed
         final url = await SupabaseService().uploadImage(file: file);
-        if (url != null) imageUrls.add(url);
+        imageUrls.add(url);
       }
 
       if (_isCancelled) return;

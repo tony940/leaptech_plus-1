@@ -32,7 +32,7 @@ class LoginRepoImpl implements LoginRepo {
       try {
         await Hive.box<UserModel>('userBox').put('currentUser', user);
         return Right(user); // Success
-      } on HiveError catch (e) {
+      } on HiveError {
         return Left(CacheFailure(errorMessage: 'error on caching user'));
       }
     } on PostgrestException catch (e) {

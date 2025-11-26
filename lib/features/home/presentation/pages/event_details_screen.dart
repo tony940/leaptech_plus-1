@@ -8,7 +8,6 @@ import 'package:leaptech_plus/core/themes/app_colors.dart';
 import 'package:leaptech_plus/core/themes/app_text_styles.dart';
 import 'package:leaptech_plus/core/utils/spacing.dart';
 import 'package:leaptech_plus/features/home/data/models/event_model.dart';
-import 'package:leaptech_plus/features/home/data/models/invited_employee_model.dart';
 import 'package:leaptech_plus/features/home/presentation/cubits/cubit/home_cubit.dart';
 import 'package:leaptech_plus/features/home/presentation/widgets/evnet_details_app_bar.dart';
 import 'package:leaptech_plus/features/home/presentation/widgets/invited_employees_list.dart';
