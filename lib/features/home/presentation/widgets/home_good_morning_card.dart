@@ -48,18 +48,20 @@ class HomeGoodMorningCard extends StatelessWidget {
               ),
             ],
           ),
-          CircleAvatar(
-            radius: 40.r,
-            backgroundColor: Colors.grey.shade300,
-            backgroundImage:
-                (image.isNotEmpty) ? CachedNetworkImageProvider(image) : null,
-            child: (image.isEmpty)
-                ? Icon(
-                    Icons.person,
-                    size: 50.r,
-                    color: Colors.white,
-                  )
-                : null,
+          Expanded(
+            child: CircleAvatar(
+              radius: 40.r,
+              backgroundColor: Colors.grey.shade300,
+              backgroundImage:
+                  (image.isNotEmpty) ? CachedNetworkImageProvider(image) : null,
+              child: (image.isEmpty)
+                  ? Icon(
+                      Icons.person,
+                      size: 50.r,
+                      color: Colors.white,
+                    )
+                  : null,
+            ),
           )
         ],
       ),

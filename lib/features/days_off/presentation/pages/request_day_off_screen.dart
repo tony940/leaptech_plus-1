@@ -316,9 +316,7 @@ class _RequestDayOffScreenState extends State<RequestDayOffScreen> {
                     ),
                   ],
                 ),
-
                 SizedBox(height: 8.h),
-
                 // Duration
                 Text(
                   "Duration: ${calculateDuration()}",

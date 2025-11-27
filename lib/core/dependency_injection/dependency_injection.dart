@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:leaptech_plus/core/services/supabase_service.dart';
+import 'package:leaptech_plus/features/admin/data/repo/admin_repo_impl.dart';
+import 'package:leaptech_plus/features/admin/presentation/cubits/cubit/admin_cubit.dart';
 import 'package:leaptech_plus/features/days_off/data/repo/days_off_repo_impl.dart';
 import 'package:leaptech_plus/features/days_off/presentation/cubits/days_off_cubit.dart';
 import 'package:leaptech_plus/features/home/data/api/home_api_constants.dart';
@@ -57,6 +59,11 @@ Future<void> setupGetIt() async {
       getIt<SupabaseService>(),
     ),
   );
+  getIt.registerLazySingleton<AdminRepoImpl>(
+    () => AdminRepoImpl(
+      supabaseService: getIt<SupabaseService>(),
+    ),
+  );
 
   // Cubits (better to be factories)
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt<LoginRepoImpl>()));
@@ -66,4 +73,5 @@ Future<void> setupGetIt() async {
       () => MemberCubit(getIt<MembersRepoImpl>()));
   getIt.registerFactory<DaysOffCubit>(
       () => DaysOffCubit(getIt<DaysOffRepoImpl>()));
+  getIt.registerFactory<AdminCubit>(() => AdminCubit(getIt<AdminRepoImpl>()));
 }

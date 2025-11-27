@@ -36,20 +36,23 @@ class PorfileNameAndtitleCard extends StatelessWidget {
                 : null,
           ),
           horizontalSpace(14),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                user?.fullName ?? 'No Name',
-                style: AppTextStyles.font16WhiteBold,
-              ),
-              Text(
-                user?.title ?? 'No title',
-                style: AppTextStyles.font14WhiteMedium,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user?.fullName ?? 'No Name',
+                  style: AppTextStyles.font16WhiteBold,
+                ),
+                Text(
+                  user?.title ?? 'No title',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.font14WhiteMedium,
+                ),
+              ],
+            ),
           ),
-          Spacer(),
           Container(
             width: 40.w,
             height: 40.w,

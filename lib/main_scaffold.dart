@@ -70,10 +70,10 @@ class _MainScaffoldState extends State<MainScaffold> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            context.push('/supabaseTestScreen');
+            context.push('/adminScreen');
           },
           icon: Icon(
-            Icons.bug_report,
+            Icons.admin_panel_settings_outlined,
             color: Colors.white,
           ),
         ),

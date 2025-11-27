@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaptech_plus/core/dependency_injection/dependency_injection.dart';
 import 'package:leaptech_plus/core/widgets/custom_photo_view.dart';
+import 'package:leaptech_plus/features/admin/presentation/cubits/cubit/admin_cubit.dart';
+import 'package:leaptech_plus/features/admin/presentation/pages/admin_screen.dart';
+import 'package:leaptech_plus/features/admin/presentation/pages/manage_employee_screen.dart';
 import 'package:leaptech_plus/features/days_off/presentation/cubits/days_off_cubit.dart';
 import 'package:leaptech_plus/features/days_off/presentation/pages/request_day_off_screen.dart';
 import 'package:leaptech_plus/features/home/data/models/event_model.dart';
@@ -100,6 +103,18 @@ class AppRouter {
             member: member,
           );
         },
+      ),
+      GoRoute(
+        path: '/adminScreen',
+        builder: (context, state) => AdminScreen(),
+      ),
+      // ManageEmployeeScreen
+      GoRoute(
+        path: '/manageEmployeeScreen',
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<AdminCubit>(),
+          child: ManageEmployeeScreen(),
+        ),
       ),
     ],
     errorBuilder: (context, state) =>
