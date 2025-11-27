@@ -87,7 +87,7 @@ class _MainScaffoldState extends State<MainScaffold> {
         index: _selectedIndex,
         color: AppColors.primaryColor,
         buttonBackgroundColor: AppColors.secondaryColor,
-        height: 60.h,
+        height: 65,
         animationDuration: const Duration(milliseconds: 300),
         items: List.generate(5, (index) {
           return SvgPicture.asset(

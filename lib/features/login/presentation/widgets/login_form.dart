@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
 import 'package:leaptech_plus/core/utils/spacing.dart';
 import 'package:leaptech_plus/core/widgets/app_text_form_field.dart';
@@ -60,6 +61,7 @@ class LoginForm extends StatelessWidget {
                     loginCubit.toggleObsecureText();
                   },
                   icon: Icon(
+                    size: 20.sp,
                     loginCubit.isObsecure
                         ? Icons.visibility_off
                         : Icons.remove_red_eye,

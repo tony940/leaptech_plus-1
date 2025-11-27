@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leaptech_plus/core/themes/app_colors.dart';
 
 class AdminAppBar extends StatelessWidget {
@@ -14,6 +15,16 @@ class AdminAppBar extends StatelessWidget {
       pinned: true,
       backgroundColor: Colors.white,
       elevation: 2,
+      leading: IconButton(
+        onPressed: () {
+          context.pop();
+        },
+        icon: Icon(
+          Icons.arrow_back_ios_new,
+          size: 20.sp,
+          color: Colors.white,
+        ),
+      ),
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         titlePadding: const EdgeInsets.only(bottom: 15),

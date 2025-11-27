@@ -35,7 +35,7 @@ class InvitedEmployeesList extends StatelessWidget {
         children: [
           verticalSpace(16),
           SizedBox(
-            height: 120.h,
+            height: 180.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: invitedEmployees.length,
@@ -52,7 +52,7 @@ class InvitedEmployeesList extends StatelessWidget {
 
   Widget _buildEmployeeItem(InvitedEmployeeModel employee) {
     return Container(
-      width: 60.w,
+      width: 100.w,
       margin: EdgeInsets.only(right: 16.w),
       child: Column(
         children: [

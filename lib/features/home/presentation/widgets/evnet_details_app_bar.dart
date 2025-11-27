@@ -5,36 +5,23 @@ import 'package:leaptech_plus/core/themes/app_text_styles.dart';
 
 class EventDetailsAppBar extends StatelessWidget {
   const EventDetailsAppBar({
-    super.key, required this.eventName,
+    super.key,
+    required this.eventName,
   });
-final String eventName;
+  final String eventName;
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       expandedHeight: 180.h,
       pinned: true,
       backgroundColor: AppColors.primaryColor,
-      leading: Container(
-        margin: EdgeInsets.all(8.w),
-        decoration: BoxDecoration(
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back_ios_new,
           color: Colors.white,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
-              offset: Offset(0, 2),
-            ),
-          ],
+          size: 20.sp,
         ),
-        child: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: AppColors.primaryColor,
-            size: 20.sp,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+        onPressed: () => Navigator.pop(context),
       ),
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(

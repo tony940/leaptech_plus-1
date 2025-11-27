@@ -162,15 +162,6 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                         ),
                       ),
                       verticalSpace(24),
-
-                      // Share Button
-                      _buildActionButton(
-                        label: "Share Event",
-                        icon: Icons.share_rounded,
-                        isPrimary: true,
-                        onTap: () => _shareEvent(widget.event),
-                      ),
-                      verticalSpace(20),
                     ],
                   ),
                 ),
@@ -496,24 +487,5 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         ),
       ),
     );
-  }
-
-  // Share Event Function
-  void _shareEvent(EventModel event) {
-    final startTime = DateFormat('hh:mm a').format(event.eventTime);
-    final endTime = DateFormat('hh:mm a').format(
-        event.eventTime.add(Duration(minutes: (event.duration * 60).toInt())));
-    final eventTime =
-        "$startTime - $endTime, ${DateFormat('EEEE, MMM dd, yyyy').format(event.eventTime)}";
-
-    final message = """
-Check out this event!
-${event.name}
-Time: $eventTime
-Location: ${event.location}
-Organizer: ${event.organizerName ?? 'N/A'}
-""";
-
-    Share.share(message);
   }
 }

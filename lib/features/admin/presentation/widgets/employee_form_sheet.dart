@@ -37,7 +37,7 @@ class _EmployeeFormSheetState extends State<EmployeeFormSheet> {
   File? _imageFile;
   final ImagePicker _picker = ImagePicker();
 
-  final List<String> _employeeTypes = ['Admin', 'Employee', 'Internship'];
+  final List<String> _employeeTypes = ['admin', 'employee', 'internship'];
 
   bool get isEditing => widget.employee != null;
 
@@ -151,12 +151,12 @@ class _EmployeeFormSheetState extends State<EmployeeFormSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 50.h),
+      margin: EdgeInsets.only(top: 50.h, bottom: 30.h),
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
-        left: 20,
-        right: 20,
-        top: 20,
+        left: 20.w,
+        right: 20.w,
+        top: 20.h,
       ),
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -167,6 +167,16 @@ class _EmployeeFormSheetState extends State<EmployeeFormSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Center(
+              child: Container(
+                width: 80.w,
+                height: 5.h,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -267,12 +277,15 @@ class _EmployeeFormSheetState extends State<EmployeeFormSheet> {
                   verticalSpace(15),
                   // Dropdown for employee type
                   DropdownButtonFormField<String>(
+                    dropdownColor: Colors.white,
                     value: _selectedType,
                     hint: const Text('Select Type'),
                     items: _employeeTypes.map((String type) {
                       return DropdownMenuItem<String>(
                         value: type,
-                        child: Text(type),
+                        child: Text(
+                          type,
+                        ),
                       );
                     }).toList(),
                     onChanged: (String? newValue) {

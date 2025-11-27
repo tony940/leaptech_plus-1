@@ -26,41 +26,41 @@ class HomeGoodMorningCard extends StatelessWidget {
         mainAxisAlignment:
             MainAxisAlignment.spaceEvenly, // <-- Center horizontally
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                getGreeting(),
-                style: AppTextStyles.font28WhiteBold,
-              ),
-              Text(
-                name,
-                style: AppTextStyles.font16WhiteBold,
-              ),
-              Text(
-                title,
-                style: AppTextStyles.font14WhiteMedium,
-              ),
-              Text(
-                type,
-                style: AppTextStyles.font14WhiteMedium,
-              ),
-            ],
-          ),
           Expanded(
-            child: CircleAvatar(
-              radius: 40.r,
-              backgroundColor: Colors.grey.shade300,
-              backgroundImage:
-                  (image.isNotEmpty) ? CachedNetworkImageProvider(image) : null,
-              child: (image.isEmpty)
-                  ? Icon(
-                      Icons.person,
-                      size: 50.r,
-                      color: Colors.white,
-                    )
-                  : null,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  getGreeting(),
+                  style: AppTextStyles.font28WhiteBold,
+                ),
+                Text(
+                  name,
+                  style: AppTextStyles.font16WhiteBold,
+                ),
+                Text(
+                  title,
+                  style: AppTextStyles.font14WhiteMedium,
+                ),
+                Text(
+                  type,
+                  style: AppTextStyles.font14WhiteMedium,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 80.r,
+            height: 80.r,
+            child: ClipOval(
+              child: image.isNotEmpty
+                  ? CachedNetworkImage(imageUrl: image, fit: BoxFit.cover)
+                  : Container(
+                      color: Colors.grey.shade300,
+                      child:
+                          Icon(Icons.person, size: 50.r, color: Colors.white),
+                    ),
             ),
           )
         ],
